@@ -7,8 +7,8 @@ class CalcForm(FlaskForm):
 	class Meta:
 		csrf = False
 
-	a = DecimalField('Число А')  #, validators=[DataRequired()])
-	b = DecimalField('Число Б')  #, validators=[DataRequired()])
+	a = DecimalField('Число А')  # , validators=[DataRequired()])
+	b = DecimalField('Число Б')  # , validators=[DataRequired()])
 	op = SelectField(
 		'Что сделать?',
 		choices=[
