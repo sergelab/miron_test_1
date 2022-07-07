@@ -33,6 +33,7 @@ def calculation(a: int, b: int, op: int) -> Optional[int]:
 	elif op == 4:
 		return a - b
 	else:
+		flash('Такая операция не обнаружена')
 		return None
 
 
