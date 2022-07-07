@@ -1,12 +1,17 @@
 from flask import Flask, render_template, flash
+from flask_debugtoolbar import DebugToolbarExtension
 from typing import Optional
+
 from .forms import CalcForm
 
 
 app = Flask(__name__)
 app.config.from_mapping(
-	SECRET_KEY='dev',
+	DEBUG=False,
+	SECRET_KEY='dev111',
+	DEBUG_TB_PROFILER_ENABLED=True
 )
+DebugToolbarExtension(app)
 
 
 @app.route('/')
