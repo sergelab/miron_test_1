@@ -94,7 +94,7 @@ def page_1():
 	return render_template("page_1.j2")
 
 
-def calculation(a: int, b: int, op: int) -> Optional[int]:
+def calculation(a: int, b: int, op: int) -> Optional[int, float]:
 	print(a, b)
 	if op == 1:
 		return a * b
@@ -171,7 +171,6 @@ def registration():
 			return redirect(url_for('index'))
 
 	return render_template("registration.j2", form=form)
-
 
 
 @app.route('/user/profile', methods=['GET', 'POSt'])
