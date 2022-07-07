@@ -1,27 +1,34 @@
 from flask import abort, Flask, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_sqlalchemy import SQLAlchemy
 from typing import Optional
+from sqlalchemy import Column, Integer, Text
 
 from .forms import CalcForm
 
 
 app = Flask(__name__)
 app.config.from_mapping(
-	DEBUG=False,
+	# DEBUG=False,
 	SECRET_KEY='dev111',
-	DEBUG_TB_PROFILER_ENABLED=True
+	DEBUG_TB_PROFILER_ENABLED=True,
+	SQLALCHEMY_TRACK_MODIFICATIONS=False,
+	SQLALCHEMY_DATABASE_URI='postgresql://localhost:5432/miron_shop_test'
 )
 DebugToolbarExtension(app)
+db = SQLAlchemy(app)
+
+
+class Product(db.Model):
+	__tablename__ = 'products'
+
+	id = Column(Integer(), primary_key=True)
+	title = Column(Text(), nullable=False)
+	description = Column(Text())
 
 
 def get_products():
-	return [
-		{'id': 1, 'title': 'Товар 1', 'description': 'Описание 1'},
-		{'id': 2, 'title': 'Товар 2', 'description': 'Описание 2'},
-		{'id': 3, 'title': 'Товар 3', 'description': 'Описание 3'},
-		{'id': 4, 'title': 'Товар 4', 'description': 'Описание 4'},
-		{'id': 5, 'title': 'Товар 5', 'description': 'Описание 5ч'}
-	]
+	return Product.query.all()
 
 
 @app.route('/')
@@ -33,14 +40,7 @@ def index():
 
 @app.route('/product/<int:product_id>')
 def product_card(product_id: int):
-	_products = get_products()
-	_product = None
-
-	for _p in _products:
-		if _p.get('id') == product_id:
-			_product = _p
-
-			break
+	_product = Product.query.filter(Product.id == product_id).one_or_none()
 
 	if not _product:
 		abort(404)
