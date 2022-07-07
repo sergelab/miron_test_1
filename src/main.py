@@ -23,6 +23,7 @@ def more():
 def page_1():
 	return render_template("page_1.j2")
 
+
 def calculation(a: int, b: int, op: int) -> Optional[int]:
 	print(a, b)
 	if op == 1:
