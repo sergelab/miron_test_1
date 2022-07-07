@@ -1,0 +1,39 @@
+{% extends "base.j2" %}
+
+{% block body %}
+	<h1>Калькулятор</h1>
+
+	<p><a href="{{ url_for('index') }}">Вернуться на главную</a></p>
+
+    <p>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+        {% if result -%}
+            <div class="alert alert-success" role="alert">
+              Результат подсчета равен {{ result }}
+            </div>
+        {%- endif %}
+    </p>
+
+	<p>
+        <form action="{{ url_for('calc') }}" method="post">
+            {{ form.hidden_tag() }}
+            {% for field in form if field.widget.input_type != 'hidden' -%}
+                <div class="mb-3">
+                    {{ field.label }}
+                    {{ field(class_="form-control") }}
+                </div>
+            {%- endfor %}
+
+            <button type="submit" class="btn btn-primary">Посчитать</button>
+        </form>
+	</p>
+{% endblock %}
