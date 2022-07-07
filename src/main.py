@@ -6,7 +6,6 @@ from typing import Optional
 from sqlalchemy import Column, Integer, Text
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 from .forms import CalcForm, RegistrationForm, LoginForm
 
 
