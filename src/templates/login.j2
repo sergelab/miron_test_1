@@ -1,0 +1,29 @@
+{% extends "base.j2" %}
+
+{% block body %}
+<h1>Вход</h1>
+
+<form action="{{ url_for('login') }}" method="post">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' -%}
+        <div class="mb-3">
+            {{ field.label }}
+            {{ field(class_="form-control") }}
+            {% if field.errors %}
+                {% for err in field.errors %}
+                    <span style="color: red">
+                        {{ err }}
+                      </span>
+                {% endfor %}
+            {%- endif %}
+        </div>
+    {%- endfor %}
+
+    <button type="submit" class="btn btn-primary">Войти</button>
+</form>
+
+<p>
+	Идите обратно на <a href="{{ url_for('index') }}">главную страницу</a>
+    или <a href="{{ url_for('registration') }}">зарегистрируйтесь</a>
+</p>
+{% endblock %}
