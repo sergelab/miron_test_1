@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, DecimalField
-from wtforms.validators import DataRequired
+from wtforms import SelectField, DecimalField, HiddenField, StringField, PasswordField
+from wtforms.validators import DataRequired, EqualTo
 
 
 class CalcForm(FlaskForm):
@@ -19,3 +19,18 @@ class CalcForm(FlaskForm):
 		],
 		coerce=int
 	)
+
+
+class RegistrationForm(FlaskForm):
+	username = StringField('Логин', validators=[DataRequired()])
+	password = PasswordField('Пароль', validators=[DataRequired()])
+	password_2 = PasswordField('Еще раз пароль', validators=[
+		DataRequired(), EqualTo('password', message='Пароли не совпадают')
+	])
+	name = StringField('Имя')
+
+
+class LoginForm(FlaskForm):
+	next = HiddenField()
+	username = StringField('Логин', validators=[DataRequired()])
+	password = PasswordField('Пароль', validators=[DataRequired()])
