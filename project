@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+error() {
+    echo $1
+    exit 1
+}
+
+help() {
+    echo ""
+    echo "Project management script"
+    echo ""
+    echo "Usage:"
+    echo "$0 action <arguments>"
+    echo ""
+    echo "Available actions:"
+    echo "    init            Init development environment"
+    echo "    build           Build project release"
+    echo "    deploy          Run migrations"
+    echo "    revert          Revert migrations to spcified point"
+    echo "    prepare         Run prepare_users for spcifid date interval"
+    echo ""
+}
+
+init() {
+    poetry install
+}
+
+dev() {
+    FLASK_ENV=development FLASK_APP=src.main poetry run flask run
+}
+
+case "$1" in
+    init)
+        init
+        ;;
+    dev)
+    dev
+    ;;
+    *)
+        help
+        ;;
+esac
