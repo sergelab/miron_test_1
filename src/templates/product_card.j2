@@ -1,0 +1,11 @@
+{% extends "base.j2" %}
+
+{% block body %}
+<h1>{{ product.title}}</h1>
+
+<p>{{product.description}}</p>
+
+<p>
+	Идите обратно на <a href="{{ url_for('index') }}">главную страницу</a>
+</p>
+{% endblock %}
