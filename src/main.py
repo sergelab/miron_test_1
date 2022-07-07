@@ -2,7 +2,7 @@ from flask import abort, current_app, Flask, redirect, url_for, request, render_
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, UserMixin, login_required
-from typing import Optional
+from typing import Optional, Union
 from sqlalchemy import Column, Integer, Text
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -93,7 +93,7 @@ def page_1():
 	return render_template("page_1.j2")
 
 
-def calculation(a: int, b: int, op: int) -> Optional[int, float]:
+def calculation(a: int, b: int, op: int) -> Optional[Union[int, float]]:
 	print(a, b)
 	if op == 1:
 		return a * b
